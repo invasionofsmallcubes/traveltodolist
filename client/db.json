@@ -1,0 +1,130 @@
+{
+  "trips": [
+    {
+      "arrivalAirport": "Pippo",
+      "arrivalDate": "2018-11-11T15:58:34.351Z",
+      "departureAirport": "Ciao",
+      "departureDate": "2018-11-11T15:58:34.351Z",
+      "id": 1
+    },
+    {
+      "arrivalAirport": "",
+      "arrivalDate": "2018-11-13T18:13:11.558Z",
+      "departureAirport": "",
+      "departureDate": "2018-11-13T18:13:11.558Z",
+      "id": 2
+    },
+    {
+      "arrivalAirport": "",
+      "arrivalDate": "2018-11-13T18:16:47.499Z",
+      "departureAirport": "",
+      "departureDate": "2018-11-13T18:16:47.499Z",
+      "id": 3
+    },
+    {
+      "arrivalAirport": "",
+      "arrivalDate": "2018-11-13T18:19:14.856Z",
+      "departureAirport": "",
+      "departureDate": "2018-11-13T18:19:14.856Z",
+      "id": 4
+    },
+    {
+      "arrivalAirport": "",
+      "arrivalDate": "2018-11-13T18:19:57.350Z",
+      "departureAirport": "",
+      "departureDate": "2018-11-13T18:19:57.350Z",
+      "id": 5
+    },
+    {
+      "arrivalAirport": "",
+      "arrivalDate": "2018-11-13T18:24:27.768Z",
+      "departureAirport": "",
+      "departureDate": "2018-11-13T18:24:27.768Z",
+      "id": 6
+    },
+    {
+      "arrivalAirport": "",
+      "arrivalDate": "2018-11-13T18:25:28.707Z",
+      "departureAirport": "",
+      "departureDate": "2018-11-13T18:25:28.708Z",
+      "id": 7
+    },
+    {
+      "arrivalAirport": "",
+      "arrivalDate": "2018-11-13T18:26:22.259Z",
+      "departureAirport": "",
+      "departureDate": "2018-11-13T18:26:22.259Z",
+      "id": 8
+    },
+    {
+      "arrivalAirport": "",
+      "arrivalDate": "2018-11-13T18:29:34.359Z",
+      "departureAirport": "",
+      "departureDate": "2018-11-13T18:29:34.360Z",
+      "id": 9
+    },
+    {
+      "arrivalAirport": "",
+      "arrivalDate": "2018-11-13T18:29:54.853Z",
+      "departureAirport": "",
+      "departureDate": "2018-11-13T18:29:54.853Z",
+      "id": 10
+    },
+    {
+      "arrivalAirport": "",
+      "arrivalDate": "2018-11-13T18:30:29.108Z",
+      "departureAirport": "",
+      "departureDate": "2018-11-13T18:30:29.109Z",
+      "id": 11
+    },
+    {
+      "arrivalAirport": "pip",
+      "arrivalDate": "2018-11-13T18:30:49.521Z",
+      "departureAirport": "pop",
+      "departureDate": "2018-11-13T18:30:49.521Z",
+      "id": 12
+    },
+    {
+      "arrivalAirport": "b",
+      "arrivalDate": "2018-11-13T18:46:35.970Z",
+      "departureAirport": "c",
+      "departureDate": "2018-11-13T18:46:35.970Z",
+      "id": 13
+    },
+    {
+      "arrivalAirport": "",
+      "arrivalDate": "2018-11-13T18:47:24.965Z",
+      "departureAirport": "",
+      "departureDate": "2018-11-13T18:47:24.966Z",
+      "id": 14
+    },
+    {
+      "arrivalAirport": "",
+      "arrivalDate": "2018-11-13T18:48:37.320Z",
+      "departureAirport": "",
+      "departureDate": "2018-11-13T18:48:37.320Z",
+      "id": 15
+    },
+    {
+      "arrivalAirport": "",
+      "arrivalDate": "2018-11-13T18:56:40.413Z",
+      "departureAirport": "",
+      "departureDate": "2018-11-13T18:56:40.413Z",
+      "id": 16
+    },
+    {
+      "arrivalAirport": "",
+      "arrivalDate": "2018-11-13T18:57:47.102Z",
+      "departureAirport": "",
+      "departureDate": "2018-11-13T18:57:47.102Z",
+      "id": 17
+    },
+    {
+      "arrivalAirport": "",
+      "arrivalDate": "2018-11-13T19:00:48.820Z",
+      "departureAirport": "",
+      "departureDate": "2018-11-13T19:00:48.820Z",
+      "id": 18
+    }
+  ]
+}

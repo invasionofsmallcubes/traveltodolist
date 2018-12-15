@@ -1,0 +1,17 @@
+{
+  "name": "traveltodolist",
+  "version": "0.1.0",
+  "description": "Frontend app for Travel ToDo List\"",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd client && npm install && npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Emanuele Ianni",
+  "license": "MIT",
+  "dependencies": {
+    "compression": "^1.7.3",
+    "express": "^4.16.4",
+    "http-proxy": "^1.17.0"
+  }
+}
