@@ -15,7 +15,7 @@ app.use(express.static(__dirname + '/client/build'));
 app.use(compression());
 
 // Proxy all the api requests
-app.all('/api/*', function (req, res) {
+app.all('/trips/*', function (req, res) {
   apiProxy.web(req, res, { target: 'https://' + API_HOST + '/trips' })
 });
 
