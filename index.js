@@ -16,7 +16,7 @@ app.use(compression());
 
 // Proxy all the api requests
 app.all('/api/*', function (req, res) {
-  apiProxy.web(req, res, { target: 'http://' + API_HOST })
+  apiProxy.web(req, res, { target: 'https://' + API_HOST + '/trips' })
 });
 
 // Otherwise serve index.html
