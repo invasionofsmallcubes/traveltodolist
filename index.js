@@ -6,7 +6,6 @@ var PORT = process.env.PORT || 5000;
 
 // Initialize
 var app = express();
-var apiProxy = httpProxy.createProxyServer();
 
 // Serve static resources from 'build' folder
 app.use(express.static(__dirname + '/client/build'));
@@ -15,8 +14,10 @@ app.use(express.static(__dirname + '/client/build'));
 app.use(compression());
 
 // Proxy all the api requests
-app.use('/trips', proxy('https://' + API_HOST, {
-  https: true
+app.use('/trips', proxy(API_HOST, {
+  proxyReqPathResolver: function (req) {
+    return "/trips" + req.url;
+  }
 }));
 
 // Otherwise serve index.html
