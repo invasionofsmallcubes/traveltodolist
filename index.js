@@ -1,6 +1,6 @@
 var express = require('express');
 var compression = require('compression');
-var httpProxy = require('http-proxy');
+var proxy = require('express-http-proxy');
 var API_HOST = process.env.API_HOST || 'localhost'
 var PORT = process.env.PORT || 5000;
 
@@ -15,11 +15,9 @@ app.use(express.static(__dirname + '/client/build'));
 app.use(compression());
 
 // Proxy all the api requests
-app.all('/trips/*', function (req, res) {
-  console.log("GOTCHA REQUEST");
-  console.log(req);
-  apiProxy.web(req, res, { target: 'https://' + API_HOST + '/trips' });
-});
+app.use('/trips', proxy('https://' + API_HOST, {
+  https: true
+}));
 
 // Otherwise serve index.html
 app.get('*', function (req, res) {

@@ -1,4 +1,4 @@
-FROM node:11.4.0-alpine
+FROM node:11.2.0-alpine
 MAINTAINER Emanuele Ianni
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
