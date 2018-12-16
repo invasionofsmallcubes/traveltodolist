@@ -4,7 +4,8 @@
   "description": "Frontend app for Travel ToDo List\"",
   "main": "index.js",
   "engines": {
-    "node": "11.2.0"
+    "node": "11.2.0",
+    "npm": "6.4.1"
   },
   "scripts": {
     "postinstall": "cd client && npm install && npm run build",
