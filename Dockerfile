@@ -8,6 +8,8 @@ WORKDIR /usr/src/app
 
 COPY . .
 
+RUN npm cache clean -f
+
 RUN npm install
 
 RUN npm run build
