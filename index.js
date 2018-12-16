@@ -2,7 +2,7 @@ var express = require('express');
 var compression = require('compression');
 var httpProxy = require('http-proxy');
 var API_HOST = process.env.API_HOST || 'localhost'
-var PORT = process.env.SERVER_PORT || 5000;
+var PORT = process.env.PORT || 5000;
 
 // Initialize
 var app = express();
