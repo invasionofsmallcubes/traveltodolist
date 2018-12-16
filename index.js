@@ -16,11 +16,15 @@ app.use(compression());
 
 // Proxy all the api requests
 app.all('/trips/*', function (req, res) {
-  apiProxy.web(req, res, { target: 'https://' + API_HOST + '/trips' })
+  console.log("GOTCHA REQUEST");
+  console.log(req);
+  apiProxy.web(req, res, { target: 'https://' + API_HOST + '/trips' });
 });
 
 // Otherwise serve index.html
 app.get('*', function (req, res) {
+  console.log("GOTCHA GET");
+  console.log(req);
   res.sendFile(__dirname + '/client/build/index.html');
 });
 
