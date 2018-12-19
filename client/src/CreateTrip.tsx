@@ -7,7 +7,7 @@ import DatePicker from "react-datepicker";
 
 import {Moment} from "moment";
 import "react-datepicker/dist/react-datepicker.css";
-import {RouteComponentProps, withRouter} from 'react-router-dom'
+import {RouteComponentProps, withRouter, Link} from 'react-router-dom'
 import Trip from './Trip';
 
 interface State {
@@ -52,7 +52,7 @@ class CreateTrip extends Component<IomponentProps, State> {
 
     public render() {
 
-        const trips = this.state.existingTrips.map((trip) => <li key={trip.id}>{trip.id}</li>);
+        const trips = this.state.existingTrips.map((trip) => <li key={trip.id}><Link to={"/trip/"+trip.id}>Click {trip.id}</Link> </li>);
 
         return (
             <div>
