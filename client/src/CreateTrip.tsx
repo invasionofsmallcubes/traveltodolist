@@ -8,12 +8,14 @@ import DatePicker from "react-datepicker";
 import {Moment} from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 import {RouteComponentProps, withRouter} from 'react-router-dom'
+import Trip from './Trip';
 
 interface State {
     arrivalDate: Moment,
     departureDate: Moment,
     arrivalAirport: string,
-    departureAirport: string
+    departureAirport: string,
+    existingTrips: Trip[]
 }
 
 interface MatchParams {
@@ -32,13 +34,29 @@ class CreateTrip extends Component<IomponentProps, State> {
             arrivalAirport: '',
             arrivalDate: moment(),
             departureAirport: '',
-            departureDate: moment()
+            departureDate: moment(),
+            existingTrips: []
         }
     }
 
+    public componentDidMount() {
+        axios.get("/trips/")
+            .then((response) => {
+                console.log(JSON.stringify(response));
+                this.setState({ existingTrips: response.data });
+            }).catch((error) => {
+            console.log(JSON.stringify(error));
+            alert(JSON.stringify(error))
+        });
+    }
+
     public render() {
+
+        const trips = this.state.existingTrips.map((trip) => <li key={trip.id}>{trip.id}</li>);
+
         return (
             <div>
+                <ul>{trips}</ul>
                 <form onSubmit={this.handleSubmit}>
                     <label>
                         Departure Airport:
