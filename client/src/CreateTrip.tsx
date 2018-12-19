@@ -1,18 +1,18 @@
-import axios from 'axios';
-import * as moment from "moment";
-import * as React from "react"
-import {Component} from "react";
-
-import DatePicker from "react-datepicker";
-
-import {Moment} from "moment";
 import "react-datepicker/dist/react-datepicker.css";
-import {RouteComponentProps, withRouter, Link} from 'react-router-dom'
+
+import * as React from "react"
+import * as moment from "moment";
+
+import {Link, RouteComponentProps, withRouter} from 'react-router-dom'
+
+import {Component} from "react";
+import DatePicker from "react-datepicker";
 import Trip from './Trip';
+import axios from 'axios';
 
 interface State {
-    arrivalDate: Moment,
-    departureDate: Moment,
+    arrivalDate: moment.Moment,
+    departureDate: moment.Moment,
     arrivalAirport: string,
     departureAirport: string,
     existingTrips: Trip[]
@@ -31,7 +31,7 @@ class CreateTrip extends Component<IomponentProps, State> {
     constructor(props: any) {
         super(props);
         this.state = {
-            arrivalAirport: '',
+            arrivalAirport: '', 
             arrivalDate: moment(),
             departureAirport: '',
             departureDate: moment(),
@@ -109,8 +109,8 @@ class CreateTrip extends Component<IomponentProps, State> {
 
     private handleChangeDeparture = (event: any) => this.setState({departureAirport: event.target.value});
 
-    private onChangeArrivalDate = (date: Moment) => this.setState({arrivalDate: date});
-    private onChangeDepartureDate = (date: Moment) => this.setState({departureDate: date});
+    private onChangeArrivalDate = (date: moment.Moment) => this.setState({arrivalDate: date});
+    private onChangeDepartureDate = (date: moment.Moment) => this.setState({departureDate: date});
 }
 
 export default withRouter(CreateTrip);
