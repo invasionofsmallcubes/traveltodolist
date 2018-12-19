@@ -4,7 +4,7 @@
   "description": "Frontend app for Travel ToDo List\"",
   "main": "index.js",
   "engines": {
-    "node": "11.5.0",
+    "node": "11.2.0",
     "yarn": "1.12.3"
   },
   "scripts": {
