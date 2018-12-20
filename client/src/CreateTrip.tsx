@@ -3,9 +3,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import * as React from "react"
 import * as moment from "moment";
 
-import {Link, RouteComponentProps, withRouter} from 'react-router-dom'
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
 
-import {Component} from "react";
+import { Component } from "react";
 import DatePicker from "react-datepicker";
 import Trip from './Trip';
 import axios from 'axios';
@@ -15,7 +15,8 @@ interface State {
     departureDate: moment.Moment,
     arrivalAirport: string,
     departureAirport: string,
-    existingTrips: Trip[]
+    existingTrips: Trip[],
+    options: string[]
 }
 
 interface MatchParams {
@@ -31,11 +32,12 @@ class CreateTrip extends Component<IomponentProps, State> {
     constructor(props: any) {
         super(props);
         this.state = {
-            arrivalAirport: '', 
+            arrivalAirport: '',
             arrivalDate: moment(),
             departureAirport: '',
             departureDate: moment(),
-            existingTrips: []
+            existingTrips: [],
+            options: []
         }
     }
 
@@ -45,14 +47,14 @@ class CreateTrip extends Component<IomponentProps, State> {
                 console.log(JSON.stringify(response));
                 this.setState({ existingTrips: response.data });
             }).catch((error) => {
-            console.log(JSON.stringify(error));
-            alert(JSON.stringify(error))
-        });
+                console.log(JSON.stringify(error));
+                alert(JSON.stringify(error))
+            });
     }
 
     public render() {
 
-        const trips = this.state.existingTrips.map((trip) => <li key={trip.id}><Link to={"/trip/"+trip.id}>Click {trip.id}</Link> </li>);
+        const trips = this.state.existingTrips.map((trip) => <li key={trip.id}><Link to={"/trip/" + trip.id}>Click {trip.id}</Link> </li>);
 
         return (
             <div>
@@ -60,14 +62,19 @@ class CreateTrip extends Component<IomponentProps, State> {
                 <form onSubmit={this.handleSubmit}>
                     <label>
                         Departure Airport:
-                        <input type="text" value={this.state.departureAirport} onChange={this.handleChangeDeparture}/>
+                        <input type="text" value={this.state.departureAirport} onChange={this.handleChangeDeparture} />
                     </label>
-                    <br/>
+                    <br />
+                    <label>
+                        Options (comma separated, possible values: fun, work):
+                        <input type="text" value={this.state.options} onChange={this.handleOptions} />
+                    </label>
+                    <br />
                     <label>
                         Arrival Airport:
-                        <input type="text" value={this.state.arrivalAirport} onChange={this.handleChangeArrival}/>
+                        <input type="text" value={this.state.arrivalAirport} onChange={this.handleChangeArrival} />
                     </label>
-                    <br/>
+                    <br />
                     <label>
                         Departure Date:
                         <DatePicker
@@ -75,7 +82,7 @@ class CreateTrip extends Component<IomponentProps, State> {
                             onChange={this.onChangeDepartureDate}
                         />
                     </label>
-                    <br/>
+                    <br />
                     <label>
                         Arrival Date:
                         <DatePicker
@@ -83,17 +90,26 @@ class CreateTrip extends Component<IomponentProps, State> {
                             onChange={this.onChangeArrivalDate}
                         />
                     </label>
-                    <br/>
-                    <input type="submit" value="Create my todo list!"/>
+                    <br />
+                    <input type="submit" value="Create my todo list!" />
                 </form>
             </div>
         );
     }
 
     private handleSubmit = (event: any) => {
-            axios.post("/trips", this.state).
-                then( response => {
-                    console.log(JSON.stringify(response));
+
+        const request = {
+            "arrivalAirport": this.state.arrivalAirport,
+            "arrivalDate": this.state.arrivalDate,
+            "departureAirport": this.state.departureAirport,
+            "departureDate": this.state.departureDate,
+            "options" : this.state.options
+        };
+
+        axios.post("/trips", request).
+            then(response => {
+                console.log(JSON.stringify(response));
                 // @ts-ignore
                 this.props.history.push('/trip/' + response.data);
             }).catch((error) => {
@@ -103,14 +119,15 @@ class CreateTrip extends Component<IomponentProps, State> {
     };
 
     private handleChangeArrival = (event: any) => {
-        this.setState({arrivalAirport: event.target.value});
+        this.setState({ arrivalAirport: event.target.value });
     };
 
 
-    private handleChangeDeparture = (event: any) => this.setState({departureAirport: event.target.value});
+    private handleChangeDeparture = (event: any) => this.setState({ departureAirport: event.target.value });
+    private handleOptions = (event: any) => this.setState({ options: event.target.value.split(",").map((word: string) => word.trim()) });
 
-    private onChangeArrivalDate = (date: moment.Moment) => this.setState({arrivalDate: date});
-    private onChangeDepartureDate = (date: moment.Moment) => this.setState({departureDate: date});
+    private onChangeArrivalDate = (date: moment.Moment) => this.setState({ arrivalDate: date });
+    private onChangeDepartureDate = (date: moment.Moment) => this.setState({ departureDate: date });
 }
 
 export default withRouter(CreateTrip);
