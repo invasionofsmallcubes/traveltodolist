@@ -1,7 +1,8 @@
-import axios from "axios";
 import * as React from "react"
+
 import {Component,} from "react";
 import TaskList from "./TaskList";
+import axios from "axios";
 
 interface Props {
     id: string
@@ -44,8 +45,15 @@ export default class TodoList extends Component<Props, State> {
                                             onChange={this.handleChangeDescription}/> </label>
                     <input type="submit" value="Add item"/>
                 </form>
+                <p>TO DO</p>
                 <ul>
-                    {this.state.taskList.tasks.map((item) => this.createTasks(item, this.props.id))}
+                    {this.state.taskList.tasks.filter((item) => item.done === false)
+                        .map((item) => this.createTasks(item, this.props.id))}
+                </ul>
+                <p>DONE</p>
+                <ul>
+                    {this.state.taskList.tasks.filter((item) => item.done === true)
+                        .map((item) => this.createDoneTasks(item, this.props.id))}
                 </ul>
             </div>
         );
@@ -69,9 +77,36 @@ export default class TodoList extends Component<Props, State> {
 
     private createTasks(item: any, id: string) {
         const newFn = () => this.deleteTask(item.id, id);
+        const doneFn = () => this.doneTask(item.id, id, true);
         return <li key={item.id}>{item.description}
-            <button onClick={newFn}>❌</button>
+            <button onClick={newFn}>❌</button> - <button onClick={doneFn}>Done</button>
         </li>
+    }
+
+    private createDoneTasks(item: any, id: string) {
+        const newFn = () => this.deleteTask(item.id, id);
+        const doneFn = () => this.doneTask(item.id, id, false);
+        return <li key={item.id}>{item.description}
+            <button onClick={newFn}>❌</button> - <button onClick={doneFn}>Undone</button>
+        </li>
+    }
+
+    private doneTask = (id: string, tripId: string, doneValue: boolean) => {
+        axios
+            .put("/trips/" + tripId + "/tasks/" + id, { "done": doneValue } )
+            .then(response => {
+                const remainder = this.state.taskList.tasks.map((item) => {
+                    if (item.id === id) {
+                        item.done = doneValue;
+                    }
+                    return item;
+                }); 
+                this.setState({taskList: new TaskList(remainder)});
+            })
+            .catch((error) => {
+                    alert(JSON.stringify(error));
+                }
+            );
     }
 
     private deleteTask = (id: string, tripId: string) => {
