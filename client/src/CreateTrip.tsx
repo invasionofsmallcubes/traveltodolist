@@ -16,7 +16,8 @@ interface State {
     arrivalAirport: string,
     departureAirport: string,
     existingTrips: Trip[],
-    options: string[]
+    options: string[],
+    typeOfTasks: any[]
 }
 
 interface MatchParams {
@@ -37,24 +38,33 @@ class CreateTrip extends Component<IomponentProps, State> {
             departureAirport: '',
             departureDate: moment(),
             existingTrips: [],
-            options: []
+            options: [],
+            typeOfTasks: []
         }
     }
 
-    public componentDidMount() {
-        axios.get("/trips/")
-            .then((response) => {
-                console.log(JSON.stringify(response));
-                this.setState({ existingTrips: response.data });
-            }).catch((error) => {
-                console.log(JSON.stringify(error));
-                alert(JSON.stringify(error))
-            });
+    public async componentDidMount() {
+        try {
+            const trips = await axios.get("/trips/");
+            const typeOfTasks = await axios.get("/trips/types/");
+            this.setState({ existingTrips: trips.data, 
+                typeOfTasks: typeOfTasks.data });
+        } catch (error) {
+            alert(JSON.stringify(error))
+        }
     }
 
     public render() {
 
-        const trips = this.state.existingTrips.map((trip) => <li key={trip.id}><Link to={"/trip/" + trip.id}>Click {trip.id}</Link> </li>);
+        const trips = this.state.existingTrips.map((trip) => <li key={trip.id}><Link to={"/trip/" + trip.id}>Click {trip.id}</Link></li>);
+        
+        const tasks = this.state.typeOfTasks.map((task) => {
+            let bgColor = "white";
+            if (this.state.options.indexOf(task.id) > -1) {
+                bgColor = "red"    
+            }
+            return <li style={{backgroundColor: bgColor}} key={task.id} onClick={this.addTypeOfTask} value={task.id}>{task.description}</li>
+        });
 
         return (
             <div>
@@ -66,8 +76,7 @@ class CreateTrip extends Component<IomponentProps, State> {
                     </label>
                     <br />
                     <label>
-                        Options (comma separated, possible values: fun, work):
-                        <input type="text" value={this.state.options} onChange={this.handleOptions} />
+                        Options (comma separated, possible values: fun, work): <ul>{tasks}</ul>
                     </label>
                     <br />
                     <label>
@@ -98,18 +107,17 @@ class CreateTrip extends Component<IomponentProps, State> {
     }
 
     private handleSubmit = (event: any) => {
-
+        
         const request = {
             "arrivalAirport": this.state.arrivalAirport,
             "arrivalDate": this.state.arrivalDate,
             "departureAirport": this.state.departureAirport,
             "departureDate": this.state.departureDate,
-            "options" : this.state.options
+            "options": this.state.options
         };
 
         axios.post("/trips", request).
             then(response => {
-                console.log(JSON.stringify(response));
                 // @ts-ignore
                 this.props.history.push('/trip/' + response.data);
             }).catch((error) => {
@@ -122,9 +130,18 @@ class CreateTrip extends Component<IomponentProps, State> {
         this.setState({ arrivalAirport: event.target.value });
     };
 
-
+    private addTypeOfTask = (event: any) => {
+        let newOptions = this.state.options
+        const value = event.currentTarget.getAttribute('value')
+        if (newOptions.indexOf(value) > -1) {
+            newOptions = newOptions.filter(elem => elem !== value)
+        } else {
+            newOptions.push(event.currentTarget.getAttribute('value'));
+        }
+        this.setState({ options: newOptions });
+    };
+    
     private handleChangeDeparture = (event: any) => this.setState({ departureAirport: event.target.value });
-    private handleOptions = (event: any) => this.setState({ options: event.target.value.split(",").map((word: string) => word.trim()) });
 
     private onChangeArrivalDate = (date: moment.Moment) => this.setState({ arrivalDate: date });
     private onChangeDepartureDate = (date: moment.Moment) => this.setState({ departureDate: date });
